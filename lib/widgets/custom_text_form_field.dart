@@ -24,14 +24,13 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         keyboardType: keyboardType,
         controller: controller,
-
         decoration: InputDecoration(
           labelText: labelText,
           border: UnderlineInputBorder(borderRadius: BorderRadius.circular(10)),
           helperText: helperText,
         ),
         validator: validator,
-        style: theme.textTheme.titleLarge,
+        style: theme.textTheme.titleMedium,
       ),
     );
   }

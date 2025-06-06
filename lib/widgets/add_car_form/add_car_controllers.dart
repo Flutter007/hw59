@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AddAutoControllers {
+class AddCarControllers {
   final formKey = GlobalKey<FormState>();
   final modelController = TextEditingController();
   final stateNumberController = TextEditingController();

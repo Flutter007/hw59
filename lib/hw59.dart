@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hw59/screens/auto_list_screen.dart';
+import 'package:hw59/screens/car_list_screen.dart';
 
 class Hw59 extends ConsumerWidget {
   const Hw59({super.key});

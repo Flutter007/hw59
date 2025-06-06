@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hw59/widgets/add_auto_form/add_auto_controllers.dart';
+import 'package:hw59/widgets/add_car_form/add_car_controllers.dart';
 import 'package:hw59/widgets/custom_text_form_field.dart';
-
-import '../../providers/auto_color_provider.dart';
+import '../../providers/car_color_provider.dart';
 import '../color_circle_container.dart';
 
 class AddAutoForm extends ConsumerStatefulWidget {
-  final AddAutoControllers controllers;
-  const AddAutoForm({super.key, required this.controllers});
+  final AddCarControllers controllers;
+  final bool isColorError;
+  final void Function()? addNewAuto;
+  const AddAutoForm({
+    super.key,
+    required this.controllers,
+    required this.addNewAuto,
+    required this.isColorError,
+  });
 
   @override
   ConsumerState<AddAutoForm> createState() => _AddAutoFormState();
@@ -41,6 +47,7 @@ class _AddAutoFormState extends ConsumerState<AddAutoForm> {
             onSelected: (value) {
               ref.read(selectedColorProvider.notifier).state = value;
             },
+            errorText: widget.isColorError ? 'Please choose color' : null,
             dropdownMenuEntries:
                 autoColors
                     .map(
@@ -78,6 +85,7 @@ class _AddAutoFormState extends ConsumerState<AddAutoForm> {
             },
             controller: widget.controllers.driverNameController,
           ),
+          ElevatedButton(onPressed: widget.addNewAuto, child: Text('Add +')),
         ],
       ),
     );

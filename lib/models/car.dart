@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-
-class Automobile {
+class Car {
+  final String? id;
   final String model;
-  final Color color;
+  final String color;
   final String stateNumber;
   final String driverName;
   final String status;
 
-  Automobile({
+  Car({
+    this.id,
     required this.model,
     required this.color,
     required this.stateNumber,
@@ -18,15 +18,16 @@ class Automobile {
   Map<String, dynamic> toJson() {
     return {
       'model': model,
-      'color': color.toString(),
+      'color': color,
       'stateNumber': stateNumber,
       'driverName': driverName,
       'status': status,
     };
   }
 
-  factory Automobile.fromJson(Map<String, dynamic> json) {
-    return Automobile(
+  factory Car.fromJson(Map<String, dynamic> json) {
+    return Car(
+      id: json['id'],
       model: json['model'],
       color: json['color'],
       stateNumber: json['stateNumber'],
