@@ -29,7 +29,6 @@ class _SingleCarScreenState extends ConsumerState<SingleCarScreen> {
         .read(changeStatusProvider.notifier)
         .changeStatus(widget.id, status);
     ref.invalidate(singleCar(widget.id));
-    ref.invalidate(carListProvider);
   }
 
   void checkStatusOfAction() {

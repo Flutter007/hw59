@@ -13,10 +13,11 @@ class AutoListScreen extends ConsumerStatefulWidget {
 }
 
 class _AutoListScreenState extends ConsumerState<AutoListScreen> {
-  void goToAddScreen() {
-    Navigator.of(
+  void goToAddScreen() async {
+    await Navigator.of(
       context,
     ).push(MaterialPageRoute(builder: (ctx) => AddAutoScreen()));
+    ref.invalidate(carListProvider);
   }
 
   @override
