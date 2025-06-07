@@ -7,6 +7,14 @@ class CustomText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleMedium = Theme.of(context).textTheme.titleMedium;
-    return Text(txt, style: titleMedium);
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Text(
+        txt,
+        style: titleMedium,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
   }
 }

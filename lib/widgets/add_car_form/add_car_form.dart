@@ -23,17 +23,18 @@ class AddAutoForm extends ConsumerStatefulWidget {
 class _AddAutoFormState extends ConsumerState<AddAutoForm> {
   @override
   Widget build(BuildContext context) {
+    final color = ref.watch(selectedColorProvider);
     final autoColors = ref.watch(colorsProvider);
     return Form(
       key: widget.controllers.formKey,
       child: Column(
         children: [
           CustomTextFormField(
-            labelText: 'Enter Auto Model',
+            labelText: 'Enter Car Model',
             helperText: 'Example: Toyota Camry 80',
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter Auto Model';
+                return 'Please enter Car Model';
               }
               return null;
             },
@@ -42,11 +43,12 @@ class _AddAutoFormState extends ConsumerState<AddAutoForm> {
           SizedBox(height: 20),
           DropdownMenu(
             label: Text('Choose Color'),
-            width: 200,
-            menuHeight: 260,
+            width: 370,
+            key: ValueKey('dropdown-color-$color'),
             onSelected: (value) {
               ref.read(selectedColorProvider.notifier).state = value;
             },
+            initialSelection: color,
             errorText: widget.isColorError ? 'Please choose color' : null,
             dropdownMenuEntries:
                 autoColors
@@ -59,6 +61,7 @@ class _AddAutoFormState extends ConsumerState<AddAutoForm> {
                     )
                     .toList(),
           ),
+          SizedBox(height: 20),
           CustomTextFormField(
             labelText: 'Enter State Number',
             helperText: 'Example: 01KG717XXX',
@@ -66,7 +69,8 @@ class _AddAutoFormState extends ConsumerState<AddAutoForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter State Number';
               }
-              if (value.length != 10 || !value.contains('KG')) {
+              bool isKG = value.contains('kg') || value.contains('KG');
+              if (value.length != 10 || !isKG) {
                 return 'Check State Number';
               }
               return null;
@@ -80,7 +84,6 @@ class _AddAutoFormState extends ConsumerState<AddAutoForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter Driver Name';
               }
-
               return null;
             },
             controller: widget.controllers.driverNameController,

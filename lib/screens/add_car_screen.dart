@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hw59/providers/car_providers.dart';
 import 'package:hw59/widgets/add_car_form/add_car_controllers.dart';
 import 'package:hw59/widgets/add_car_form/add_car_form.dart';
+
 import '../providers/car_color_provider.dart';
 
 class AddAutoScreen extends ConsumerStatefulWidget {
@@ -16,27 +17,39 @@ class _AddAutoScreenState extends ConsumerState<AddAutoScreen> {
   final controllers = AddCarControllers();
   bool isColorSelected = false;
 
-  void addAuto() {
+  void _showSnackBar(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
+  void addAuto() async {
     bool isColorSelected = checkColorState();
     if (controllers.formKey.currentState!.validate() && isColorSelected) {
       final colorId = ref.read(selectedColorProvider);
-      ref.read(createCarProvider.notifier).createCar(colorId, controllers);
-      ref.invalidate(carListProvider);
+      await ref
+          .read(createCarProvider.notifier)
+          .createCar(colorId, controllers);
+      if (mounted) {
+        ref.invalidate(carListProvider);
+        clearForm();
+      }
     }
+  }
+
+  void clearForm() {
+    controllers.driverNameController.clear();
+    controllers.modelController.clear();
+    controllers.stateNumberController.clear();
+    ref.read(selectedColorProvider.notifier).state = null;
   }
 
   void checkStatusOfAction() {
     ref.listen(createCarProvider, (prev, next) {
       next.whenOrNull(
         data: (d) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Car created succesfully')));
+          _showSnackBar('Successfully added');
         },
         error: (e, stack) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Something went wrong')));
+          _showSnackBar('Something went wrong');
         },
       );
     });
@@ -54,7 +67,6 @@ class _AddAutoScreenState extends ConsumerState<AddAutoScreen> {
   void dispose() {
     super.dispose();
     controllers.dispose();
-    ref.read(selectedColorProvider.notifier).state = null;
   }
 
   @override

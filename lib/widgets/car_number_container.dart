@@ -7,6 +7,7 @@ class CarNumberContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Container(
         width: 130,
@@ -14,9 +15,9 @@ class CarNumberContainer extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.black, width: 2),
+          color: theme.surface,
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
@@ -32,7 +33,10 @@ class CarNumberContainer extends StatelessWidget {
               ],
             ),
             SizedBox(width: 10),
-            FeStyleText(text: number.substring(4, 10)),
+            Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: FeStyleText(text: number.substring(4, 10)),
+            ),
           ],
         ),
       ),

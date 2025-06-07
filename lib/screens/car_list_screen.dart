@@ -33,7 +33,9 @@ class _AutoListScreenState extends ConsumerState<AutoListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Attractor Taxi'),
-        actions: [IconButton(onPressed: goToAddScreen, icon: Icon(Icons.add))],
+        actions: [
+          IconButton(onPressed: goToAddScreen, icon: Icon(Icons.add, size: 30)),
+        ],
       ),
       body: body,
     );

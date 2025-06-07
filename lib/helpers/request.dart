@@ -13,6 +13,8 @@ Future<dynamic> request(
     response = await http.get(uri);
   } else if (method == 'POST') {
     response = await http.post(uri, body: json.encode(body));
+  } else if (method == 'PATCH') {
+    response = await http.patch(uri, body: json.encode(body));
   } else {
     throw Exception('Method not supported');
   }

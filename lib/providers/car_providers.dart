@@ -1,14 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hw59/helpers/request.dart';
 import 'package:hw59/models/car.dart';
-
 import '../widgets/add_car_form/add_car_controllers.dart';
 import 'car_color_provider.dart';
 
 final baseUrl =
     'https://my-db-7777-default-rtdb.europe-west1.firebasedatabase.app';
+
 final carListProvider = FutureProvider<List<Car>>((ref) async {
   final url = '$baseUrl/cars.json';
   final Map<String, dynamic>? response = await request(url);
@@ -28,6 +27,7 @@ class CreateCarNotifier extends AsyncNotifier<void> {
   build() {}
   Future<void> createCar(String? colorId, AddCarControllers controller) async {
     final color = ref.read(colorByIdProvider(colorId!));
+
     final url = '$baseUrl/cars.json';
     state = AsyncValue.loading();
     state = await AsyncValue.guard(() async {
@@ -35,10 +35,9 @@ class CreateCarNotifier extends AsyncNotifier<void> {
         model: controller.modelController.text.toUpperCase(),
         color: color.title,
         stateNumber: controller.stateNumberController.text,
-        driverName: controller.driverNameController.text,
-        status: 'Is Busy',
+        driverName: controller.driverNameController.text.toUpperCase(),
+        status: 'Busy',
       );
-
       await request(url, method: 'POST', body: car.toJson());
     });
   }
@@ -47,3 +46,11 @@ class CreateCarNotifier extends AsyncNotifier<void> {
 final createCarProvider = AsyncNotifierProvider<CreateCarNotifier, void>(
   CreateCarNotifier.new,
 );
+
+final singleCar = FutureProvider.family<Car?, String>((ref, id) async {
+  final url = '$baseUrl/cars/$id.json';
+  final response = await request(url);
+  if (response == null) return null;
+  final car = Car.fromJson({...response, 'id': id});
+  return car;
+});

@@ -10,7 +10,7 @@ class ColorCircleContainer extends StatelessWidget {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(8),
         color: color,
         border: Border.all(width: 2),
       ),
