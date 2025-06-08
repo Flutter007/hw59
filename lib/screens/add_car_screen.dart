@@ -5,14 +5,14 @@ import 'package:hw59/widgets/add_car_form/add_car_controllers.dart';
 import 'package:hw59/widgets/add_car_form/add_car_form.dart';
 import '../providers/car_color_provider.dart';
 
-class AddAutoScreen extends ConsumerStatefulWidget {
-  const AddAutoScreen({super.key});
+class AddCarScreen extends ConsumerStatefulWidget {
+  const AddCarScreen({super.key});
 
   @override
-  ConsumerState<AddAutoScreen> createState() => _AddAutoScreenState();
+  ConsumerState<AddCarScreen> createState() => _AddCarScreenState();
 }
 
-class _AddAutoScreenState extends ConsumerState<AddAutoScreen> {
+class _AddCarScreenState extends ConsumerState<AddCarScreen> {
   final controllers = AddCarControllers();
   bool isColorSelected = false;
 

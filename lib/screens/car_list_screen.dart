@@ -5,18 +5,18 @@ import 'package:hw59/screens/add_car_screen.dart';
 import 'package:hw59/widgets/car_grid.dart';
 import 'package:hw59/widgets/event_container.dart';
 
-class AutoListScreen extends ConsumerStatefulWidget {
-  const AutoListScreen({super.key});
+class CarListScreen extends ConsumerStatefulWidget {
+  const CarListScreen({super.key});
 
   @override
-  ConsumerState<AutoListScreen> createState() => _AutoListScreenState();
+  ConsumerState<CarListScreen> createState() => _CarListScreenState();
 }
 
-class _AutoListScreenState extends ConsumerState<AutoListScreen> {
+class _CarListScreenState extends ConsumerState<CarListScreen> {
   void goToAddScreen() async {
     await Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (ctx) => AddAutoScreen()));
+    ).push(MaterialPageRoute(builder: (ctx) => AddCarScreen()));
     ref.invalidate(carListProvider);
   }
 

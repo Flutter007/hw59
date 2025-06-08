@@ -8,6 +8,6 @@ class Hw59 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(theme: lightTheme, home: AutoListScreen());
+    return MaterialApp(theme: lightTheme, home: CarListScreen());
   }
 }
